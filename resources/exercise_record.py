@@ -1,6 +1,6 @@
 from flask_restful import Resource
 
 
-class PoseRecord(Resource):
+class ExerciseRecord(Resource):
     def post(self):
         pass

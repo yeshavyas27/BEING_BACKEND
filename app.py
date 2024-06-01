@@ -1,5 +1,3 @@
-import os
-#
 from global_utilities import app
 
 
