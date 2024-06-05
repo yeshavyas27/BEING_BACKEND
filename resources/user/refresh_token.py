@@ -15,4 +15,6 @@ class RefreshToken(Resource):
             "access_token": access_token
         }
         response = make_response(json.dumps(response_payload))
+        response.mimetype = 'application/json'
+
         return response

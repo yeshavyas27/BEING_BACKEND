@@ -1,5 +1,7 @@
 import json
 import traceback
+from http import HTTPStatus
+
 #
 from flask import request, make_response
 from flask_jwt_extended import jwt_required, get_jwt_identity
@@ -20,19 +22,36 @@ class ExerciseRecord(Resource):
         try:
             data = validate_request(request)
         except Exceptions as exception:
-            self.logger.error(f"Exception raised in Register API. Traceback:\n{traceback.print_exc()}")
+            self.logger.error(f"Exception raised in add Exercise Record API. Traceback:\n{traceback.print_exc()}")
             response_payload = {
                 "status": "FAILURE",
                 "message": exception.message
             }
             response = make_response(json.dumps(response_payload))
             response.status_code = exception.status_code
+            response.mimetype = 'application/json'
+
+            return response
 
         exercise_id = data.get("exercise_id")
         user_id = get_jwt_identity()
         accuracy = data.get("accuracy")
-        response_payload = ExerciseRecordRepository().insert(exercise_id=exercise_id, user_id=user_id, accuracy=accuracy)
+        try:
+            response_payload = ExerciseRecordRepository().insert(exercise_id=exercise_id, user_id=user_id, accuracy=accuracy)
+        except Exceptions as exception:
+            self.logger.error(f"Exception raised in inserting record in database . Traceback:\n{traceback.print_exc()}")
+            response_payload = {
+                "status": "FAILURE",
+                "message": exception.message
+            }
+            response = make_response(json.dumps(response_payload))
+            response.status_code = exception.status_code
+            response.mimetype = 'application/json'
+
+            return response
+
         response = make_response(json.dumps(response_payload))
+        response.mimetype = 'application/json'
 
         return response
 

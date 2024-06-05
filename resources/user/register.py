@@ -22,13 +22,16 @@ class Register(Resource):
         try:
             data = validate_request(request)
         except Exceptions as exception:
-            self.logger.error(f"Exception raised in Register API. Traceback:\n{traceback.print_exc()}")
+            self.logger.error(f"Exception raised in Register User API. Traceback:\n{traceback.print_exc()}")
             response_payload = {
                 "status": "FAILURE",
                 "message": exception.message
             }
             response = make_response(json.dumps(response_payload))
             response.status_code = exception.status_code
+            response.mimetype = 'application/json'
+
+            return response
 
         email = data.get("email")
         password = data.get("password")
@@ -46,6 +49,8 @@ class Register(Resource):
                 }
                 response = make_response(json.dumps(response_payload))
                 response.status_code = HTTPStatus.BAD_REQUEST
+                response.mimetype = 'application/json'
+
                 return response
 
             username = None
@@ -53,7 +58,19 @@ class Register(Resource):
                 username = data.get("username")
 
             self.logger.info("Attempting to insert the user data in database")
-            user_id = UserRepository().insert(email_id=email, password=password, username=username)
+            try:
+                user_id = UserRepository().insert(email_id=email, password=password, username=username)
+            except Exceptions as exception:
+                self.logger.error(f"Exception raised in inserting user record in database . Traceback:\n{traceback.print_exc()}")
+                response_payload = {
+                    "status": "FAILURE",
+                    "message": exception.message
+                }
+                response = make_response(json.dumps(response_payload))
+                response.status_code = exception.status_code
+                response.mimetype = 'application/json'
+
+                return response
 
             access_token = create_access_token(identity=user_id)
             refresh_token = create_refresh_token(identity=user_id)
@@ -62,6 +79,9 @@ class Register(Resource):
                 "refresh_token": refresh_token
             }
             response = make_response(json.dumps(response_payload))
+            response.mimetype = 'application/json'
+
+            return response
 
         else:
             self.logger.error(f"Email ID or Password not sent. Traceback:\n{traceback.print_exc()}")
@@ -71,5 +91,6 @@ class Register(Resource):
             }
             response = make_response(json.dumps(response_payload))
             response.status_code = HTTPStatus.BAD_REQUEST
+            response.mimetype = 'application/json'
 
-        return response
+            return response

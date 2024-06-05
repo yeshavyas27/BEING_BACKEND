@@ -30,7 +30,8 @@ class Exercise(Resource):
             }
             response = make_response(json.dumps(response_payload))
             response.status_code = exception.status_code
-
+            response.mimetype = 'application/json'
+            return response
         name = data.get("name")
         image_url = data.get("image_url")
         instruction = None
@@ -40,8 +41,22 @@ class Exercise(Resource):
         if data.get("tags"):
             tags = data.get("tags")
         user_id = get_jwt_identity()
-        response_payload = ExerciseRepository().insert(name=name, image_url=image_url, created_by=user_id, instruction=instruction, tags=tags)
+        try:
+            response_payload = ExerciseRepository().insert(name=name, image_url=image_url, created_by=user_id, instruction=instruction, tags=tags)
+        except Exceptions as exception:
+            self.logger.error(f"Exception raised in inserting new exercise in database . Traceback:\n{traceback.print_exc()}")
+            response_payload = {
+                "status": "FAILURE",
+                "message": exception.message
+            }
+            response = make_response(json.dumps(response_payload))
+            response.status_code = exception.status_code
+            response.mimetype = 'application/json'
+
+            return response
+
         response = make_response(json.dumps(response_payload))
+        response.mimetype = 'application/json'
 
         return response
 
