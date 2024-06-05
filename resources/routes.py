@@ -22,11 +22,11 @@ api.add_resource(
     '/refresh',
 
 )
-# api.add_resource(
-#     Login,
-#     '/login',
-#
-# )
+api.add_resource(
+    Login,
+    '/login',
+
+)
 api.add_resource(
     ExerciseRecord,
     '/exercise_record'
