@@ -59,3 +59,17 @@ class ExerciseRepository:
         self.logger.info(f"The list of exercises fetch is: {exercises_list}")
         return exercises_list
 
+    def find_by_name(self, name: str) -> dict:
+        try:
+            self.logger.debug(f"Attempting to find exercise with name: {name}")
+            exercise = self.collection.find_one({"name": name})
+            if exercise:
+                exercise['_id'] = str(exercise['_id'])
+            return exercise
+        except Exception:
+            error = f"Error while fetching exercise with name: {name} from database"
+            self.logger.error(error)
+            raise Exceptions(
+                HTTPStatus.INTERNAL_SERVER_ERROR,
+                error
+            )
