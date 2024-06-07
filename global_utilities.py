@@ -34,12 +34,12 @@ from pymongo import MongoClient
 client = MongoClient("mongodb+srv://yeshavyas27:BZhpYSJPqxDzWnqO@being.xlbs4jm.mongodb.net/?retryWrites=true&w=majority&appName=BEING")
 
 # fetch being database
-being_db = client.being
+being_db = client.being #being is the database
 
 # fetch collections
 exercises = being_db.exercises
-exercise_records = being_db.exercise_records
-users = being_db.users
+exercise_records = being_db .exercise_records
+users = being_db.users # users data (collection)
 
 
 from resources import routes
