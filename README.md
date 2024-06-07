@@ -6,20 +6,25 @@
 <br>
 3. Install pipvenv if not in the system, write the following code in terminal to install: 
 
-```
-pip install virtualenv
-```
+  ```
+  pip install virtualenv
+  ```
+<br>
 4. Open terminal in the project folder and create the venv (skip this step if you have a venv folder in your project)
 
-```
-python -m venv venv
-```
+  ```
+  python -m venv venv
+  ```
+<br>
+
 5. Install dependencies
 
-```
-pip install -r requirements.txt
-```
+  ```
+  pip install -r requirements.txt
+  ```
+<br>
+
 6. Run the app.py file
-```
-python app.py
-```
+  ```
+  python app.py
+  ```
