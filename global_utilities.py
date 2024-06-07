@@ -26,7 +26,12 @@ jwt = JWTManager(app)
 
 # establish mongodb connection
 from pymongo import MongoClient
-client = MongoClient("localhost", 27017)
+# for production use:
+# MongoClient("mongodb+srv://yeshavyas27:BZhpYSJPqxDzWnqO@being.xlbs4jm.mongodb.net/?retryWrites=true&w=majority&appName=BEING")
+# for local:
+# MongoClient("localhost", 27017)
+
+client = MongoClient("mongodb+srv://yeshavyas27:BZhpYSJPqxDzWnqO@being.xlbs4jm.mongodb.net/?retryWrites=true&w=majority&appName=BEING")
 
 # fetch being database
 being_db = client.being
