@@ -2,13 +2,14 @@ import logging
 from datetime import timedelta
 
 from flask import Flask
-
+from flask_cors import CORS
 
 from utilities.logging_utilities import LoggingUtilities
 #
 logging_utilities = LoggingUtilities()
 
 app = Flask(__name__)
+CORS(app, origins=["http://localhost:3000"])
 app.logger.setLevel(logging.INFO)
 logging_utilities.register_app(logger=app.logger)
 
