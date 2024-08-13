@@ -1,0 +1,27 @@
+version: "3"
+services:
+  web:
+    image: being_backend
+    build: ./
+    command:
+      - python3
+      - app.py
+    environment:
+      FLASK_PORT: 5000
+      FLASK_DEBUG: 1
+      FLASK_APP: ./app.py
+      FLASK_SECRET: gdjadhasgdye
+      SERVER_ENVIRONMENT: DEVELOPMENT
+      DEBUG: "True"
+      AWS_ACCESS_KEY_ID:
+      AWS_SECRET_ACCESS_KEY:
+      AWS_DEFAULT_REGION:
+      MONGO_HOST:
+      MONGO_USER:
+      MONGO_PASSWORD:
+    volumes: [
+      './:/app'
+    ]
+    stdin_open: true
+    tty: true
+    network_mode: host

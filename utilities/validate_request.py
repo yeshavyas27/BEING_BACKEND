@@ -2,7 +2,7 @@ import logging
 #
 from http import HTTPStatus
 #
-from utilities.exceptions import Exceptions
+from abstractions.exceptions import Exceptions
 
 
 def validate_request(request):
