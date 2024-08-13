@@ -1,11 +1,11 @@
 from flask_restful import Api
 # 
-from app import app
+from global_utilities import app
 # 
 from resources.exercise import Exercise
-from resources.exercise_record import ExerciseRecord
+from resources.user_exercise_record import UserExerciseRecord
 from resources.exercises import Exercises
-from resources.user.refresh_token import RefreshToken
+from resources.user.refresh_token import RefreshAccessToken
 from resources.user.register import Register
 from resources.user.login import Login
 
@@ -18,7 +18,7 @@ api.add_resource(
 
 )
 api.add_resource(
-    RefreshToken,
+    RefreshAccessToken,
     '/refresh',
 
 )
@@ -28,8 +28,8 @@ api.add_resource(
 
 )
 api.add_resource(
-    ExerciseRecord,
-    '/exercise_record'
+    UserExerciseRecord,
+    '/user_exercise_record'
 )
 api.add_resource(
     Exercise,

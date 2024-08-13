@@ -5,8 +5,10 @@ from flask_jwt_extended import get_jwt_identity, create_access_token, jwt_requir
 from flask_restful import Resource
 
 
-class RefreshToken(Resource):
+class RefreshAccessToken(Resource):
 
+    # We are using the `refresh=True` options in jwt_required to only allow
+    # refresh tokens to access this route.
     @jwt_required(refresh=True)
     def post(self):
         identity = get_jwt_identity()
