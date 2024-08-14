@@ -9,7 +9,6 @@ from flask import request, make_response
 from abstractions.base_resource import BaseResource
 from abstractions.exceptions import Exceptions
 
-from global_utilities import logging_utilities
 
 from services.exercise.fetch_all import FetchExercises
 
@@ -18,7 +17,6 @@ class Exercises(Resource, BaseResource):
 
     def __init__(self):
         super().__init__()
-        self.logger = logging_utilities.logger
         self.page_size = 10
 
     def get(self):

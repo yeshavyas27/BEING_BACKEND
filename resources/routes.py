@@ -3,6 +3,7 @@ from flask_restful import Api
 from global_utilities import app
 # 
 from resources.exercise import Exercise
+from resources.scrape import Scrape
 from resources.user_exercise_record import UserExerciseRecord
 from resources.exercises import Exercises
 from resources.user.refresh_token import RefreshAccessToken
@@ -39,4 +40,8 @@ api.add_resource(
 api.add_resource(
     Exercises,
     '/exercises',
+)
+api.add_resource(
+    Scrape,
+    '/scrape_exercises'
 )

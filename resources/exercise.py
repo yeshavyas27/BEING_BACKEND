@@ -8,7 +8,6 @@ from flask import request, make_response
 from abstractions.base_resource import BaseResource
 from abstractions.exceptions import Exceptions
 
-from global_utilities import logging_utilities
 from services.exercise.add import AddExercise
 from services.exercise.fetch import FetchExerciseByName
 from utilities.validate_request import validate_request
@@ -17,7 +16,6 @@ from utilities.validate_request import validate_request
 class Exercise(Resource, BaseResource):
     def __init__(self):
         super().__init__()
-        self.logger = logging_utilities.logger
 
     def post(self):
         try:
