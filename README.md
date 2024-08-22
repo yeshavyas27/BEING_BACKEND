@@ -1,6 +1,5 @@
 # BEING BACKEND SERVER
-Marketplace to rent outdoor media space
-
+Exercise correctly with Being
 Setup
 1. Clone the repo
 2. Switch to the current directory
